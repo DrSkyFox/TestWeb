@@ -33,13 +33,13 @@ public class SomeController {
         return new ResponseEntity<>(service.save(messageDAO), HttpStatus.OK);
     }
 
-    @GetMapping(path = "/{id}", produces = "application/json")
+    @GetMapping(path = "/req={id}", produces = "application/json")
     public RequestMessage getRequestMsg(@Parameter(description = "Get Message with Id") @PathVariable("id") Long id) {
         log.info("Get Message with ID: {}", id);
         return service.getRequestMsg(id);
     }
 
-    @GetMapping(path = "/{id}", produces = "application/json")
+    @GetMapping(path = "/resp={id}", produces = "application/json")
     public RequestResponseMessage getRequestResponseMsg(@Parameter(description = "Get Message with Id") @PathVariable("id") Long id) {
         log.info("Get Message with ID: {}", id);
         return service.getResponseMsg(id);
