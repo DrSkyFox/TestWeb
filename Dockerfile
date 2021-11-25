@@ -1,4 +1,4 @@
-FROM openjdk:17-alpine
+FROM openjdk:17-ea-22-oraclelinux8
 RUN addgroup -S webtest && adduser -S webtest -G webtest
 USER webtest
 EXPOSE 8080
