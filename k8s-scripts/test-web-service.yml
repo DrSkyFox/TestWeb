@@ -6,7 +6,7 @@ metadata:
   name: test-web-service
 spec:
   selector:
-    app: test-web-service
+    app: test-web-6dc9655948
   ports:
     - name: 8080-8080
       protocol: TCP

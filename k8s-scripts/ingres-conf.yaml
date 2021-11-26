@@ -3,12 +3,13 @@ kind: Ingress
 metadata:
   name: test-web-ingress
   annotations:
+    kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
     - http:
         paths:
-          - path: /test-web
+          - path: /
             backend:
               service:
                 name: test-web-service
