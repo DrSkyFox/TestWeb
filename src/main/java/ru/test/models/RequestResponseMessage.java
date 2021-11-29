@@ -3,16 +3,32 @@ package ru.test.models;
 
 import lombok.*;
 
+import javax.persistence.*;
+
 @Builder
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Entity
+@Table(name ="request_response")
 public class RequestResponseMessage {
 
-    private String messageResponse;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long responseID;
+
+    @Column(name = "response")
+    private String messageResponse;
+
+    @Column(name = "isEnabled")
+    private Boolean isEnabled;
+
+    @OneToOne
+    @MapsId
+    @Column(name = "request_id")
+    private RequestMessage request;
 
 
 }

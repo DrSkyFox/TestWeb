@@ -3,10 +3,10 @@ kind: Service
 metadata:
   labels:
     visualize: "true"
-  name: test-web-service
+  name: test-web
 spec:
   selector:
-    app: test-web-6dc9655948
+    app: test-web
   ports:
     - name: 8080-8080
       protocol: TCP

@@ -1,7 +1,10 @@
 package ru.test.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import ru.test.jparepo.RequestMessageRepository;
+import ru.test.jparepo.RequestMessageResponseRepository;
 import ru.test.models.RequestMessage;
 import ru.test.models.RequestResponseMessage;
 import ru.test.repo.InMemoryRepository;
@@ -9,26 +12,43 @@ import ru.test.repo.InMemoryRepository;
 @Service
 public class SomeServiceImpl implements SomeService{
 
+    @Value("${custom.msg}")
+    private static String msg;
 
-    private final InMemoryRepository repository;
+    private final RequestMessageRepository request;
+    private final RequestMessageResponseRepository response;
 
     @Autowired
-    public SomeServiceImpl(InMemoryRepository repository) {
-        this.repository = repository;
+    public SomeServiceImpl(RequestMessageRepository request, RequestMessageResponseRepository response) {
+        this.request = request;
+        this.response = response;
     }
+
 
     @Override
     public RequestResponseMessage save(RequestMessage requestMessage) {
-        return repository.save(requestMessage);
+        var savedDB = request.save(requestMessage);
+        var saveResponse =  response.save(RequestResponseMessage.builder()
+                        .messageResponse(msg + " Do u know about u-self ? Dont ask me about " + savedDB.getMsg() + "!!!")
+                        .request(savedDB)
+                .build());
+        return saveResponse;
     }
 
     @Override
     public RequestResponseMessage getResponseMsg(Long id) {
-        return repository.getResponseMsg(id);
+        var responseMsg = response.findById(id);
+        if(responseMsg.isPresent()) {
+            return responseMsg.get();
+        } else throw new RuntimeException("MsgNotFound");
     }
 
     @Override
     public RequestMessage getRequestMsg(Long id) {
-        return repository.getRequest(id);
+        var requestMsg = request.findById(id);
+        if(requestMsg.isPresent()) {
+            return requestMsg.get();
+        } else throw new RuntimeException("MsgNotFound");
+
     }
 }
