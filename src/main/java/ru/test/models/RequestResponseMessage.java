@@ -17,7 +17,7 @@ public class RequestResponseMessage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long responseID;
+    private Long id;
 
     @Column(name = "response")
     private String messageResponse;
@@ -26,8 +26,7 @@ public class RequestResponseMessage {
     private Boolean isEnabled;
 
     @OneToOne
-    @MapsId
-    @Column(name = "request_id")
+    @JoinColumn(name = "request_id", referencedColumnName = "id")
     private RequestMessage request;
 
 

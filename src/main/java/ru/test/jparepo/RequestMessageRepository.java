@@ -15,7 +15,7 @@ public interface RequestMessageRepository extends JpaRepository<RequestMessage, 
 
     Optional<RequestMessage> findById(Long id);
 
-    @Query("update RequestMessage R set R.isEnabled = false where R.idRequest=:id")
+    @Query("update RequestMessage R set R.isEnabled = false where R.id=:id")
     void deleteById(Long id);
 
 

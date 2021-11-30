@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.test.models.RequestMessage;
-import ru.test.models.RequestResponseMessage;
+import ru.test.dao.RequestDAO;
+import ru.test.dao.ResponseDAO;
 import ru.test.service.SomeService;
 
 @Slf4j
@@ -28,19 +28,20 @@ public class SomeController {
 
     @Operation(summary = "Create new Message")
     @PostMapping(path = "/create", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<RequestResponseMessage> createMessage(@Parameter(description = "Message body") @RequestBody RequestMessage messageDAO) {
+    public ResponseEntity<ResponseDAO> createMessage(@Parameter(description = "Message body") @RequestBody RequestDAO messageDAO) {
         log.info("Create message. MessageBody is {}", messageDAO);
-        return new ResponseEntity<>(service.save(messageDAO), HttpStatus.OK);
+        var response = service.save(messageDAO);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping(path = "/req={id}", produces = "application/json")
-    public RequestMessage getRequestMsg(@Parameter(description = "Get Message with Id") @PathVariable("id") Long id) {
+    public RequestDAO getRequestMsg(@Parameter(description = "Get Message with Id") @PathVariable("id") Long id) {
         log.info("Get Message with ID: {}", id);
         return service.getRequestMsg(id);
     }
 
     @GetMapping(path = "/resp={id}", produces = "application/json")
-    public RequestResponseMessage getRequestResponseMsg(@Parameter(description = "Get Message with Id") @PathVariable("id") Long id) {
+    public ResponseDAO getRequestResponseMsg(@Parameter(description = "Get Message with Id") @PathVariable("id") Long id) {
         log.info("Get Message with ID: {}", id);
         return service.getResponseMsg(id);
     }

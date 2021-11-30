@@ -1,10 +1,11 @@
 package ru.test.service;
 
-import ru.test.models.RequestMessage;
-import ru.test.models.RequestResponseMessage;
+import ru.test.dao.RequestDAO;
+import ru.test.dao.ResponseDAO;
+
 
 public interface SomeService {
-    RequestResponseMessage save(RequestMessage requestMessage);
-    RequestResponseMessage getResponseMsg(Long id);
-    RequestMessage getRequestMsg(Long id);
+    ResponseDAO save(RequestDAO requestMessage);
+    ResponseDAO getResponseMsg(Long id);
+    RequestDAO getRequestMsg(Long id);
 }

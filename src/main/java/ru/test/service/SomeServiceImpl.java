@@ -1,14 +1,19 @@
 package ru.test.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import ru.test.dao.RequestDAO;
+import ru.test.dao.ResponseDAO;
 import ru.test.jparepo.RequestMessageRepository;
 import ru.test.jparepo.RequestMessageResponseRepository;
 import ru.test.models.RequestMessage;
 import ru.test.models.RequestResponseMessage;
-import ru.test.repo.InMemoryRepository;
 
+
+@Slf4j
 @Service
 public class SomeServiceImpl implements SomeService{
 
@@ -26,28 +31,35 @@ public class SomeServiceImpl implements SomeService{
 
 
     @Override
-    public RequestResponseMessage save(RequestMessage requestMessage) {
-        var savedDB = request.save(requestMessage);
+    @Transactional
+    public ResponseDAO save(RequestDAO requestMessage) {
+        log.info("Saved to bd {}", requestMessage.toString());
+        var savedDB = request.save(RequestMessage.builder()
+                        .msg(requestMessage.getMsg())
+                        .isEnabled(true)
+                .build());
+        log.info(savedDB.toString());
         var saveResponse =  response.save(RequestResponseMessage.builder()
                         .messageResponse(msg + " Do u know about u-self ? Dont ask me about " + savedDB.getMsg() + "!!!")
                         .request(savedDB)
                 .build());
-        return saveResponse;
+        log.info(saveResponse.toString());
+        return new ResponseDAO(saveResponse);
     }
 
     @Override
-    public RequestResponseMessage getResponseMsg(Long id) {
+    public ResponseDAO getResponseMsg(Long id) {
         var responseMsg = response.findById(id);
         if(responseMsg.isPresent()) {
-            return responseMsg.get();
+            return new ResponseDAO(responseMsg.get());
         } else throw new RuntimeException("MsgNotFound");
     }
 
     @Override
-    public RequestMessage getRequestMsg(Long id) {
+    public RequestDAO getRequestMsg(Long id) {
         var requestMsg = request.findById(id);
         if(requestMsg.isPresent()) {
-            return requestMsg.get();
+            return new RequestDAO(requestMsg.get());
         } else throw new RuntimeException("MsgNotFound");
 
     }

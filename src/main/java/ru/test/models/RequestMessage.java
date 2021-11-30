@@ -16,7 +16,7 @@ public class RequestMessage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idRequest;
+    private Long id;
 
     @Column(name = "msg", nullable = false)
     private String msg;
@@ -25,7 +25,6 @@ public class RequestMessage {
     private Boolean isEnabled;
 
     @OneToOne(mappedBy = "request", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
     private RequestResponseMessage response;
 
 
