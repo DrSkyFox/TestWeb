@@ -25,9 +25,4 @@ public class RequestResponseMessage {
     @Column(name = "isEnabled")
     private Boolean isEnabled;
 
-    @OneToOne
-    @JoinColumn(name = "request_id", referencedColumnName = "id")
-    private RequestMessage request;
-
-
 }

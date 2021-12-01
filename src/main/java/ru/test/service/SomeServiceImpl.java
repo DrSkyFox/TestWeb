@@ -41,7 +41,6 @@ public class SomeServiceImpl implements SomeService{
         log.info(savedDB.toString());
         var saveResponse =  response.save(RequestResponseMessage.builder()
                         .messageResponse(msg + " Do u know about u-self ? Dont ask me about " + savedDB.getMsg() + "!!!")
-                        .request(savedDB)
                 .build());
         log.info(saveResponse.toString());
         return new ResponseDAO(saveResponse);

@@ -24,8 +24,4 @@ public class RequestMessage {
     @Column(name = "isEnabled")
     private Boolean isEnabled;
 
-    @OneToOne(mappedBy = "request", cascade = CascadeType.ALL)
-    private RequestResponseMessage response;
-
-
 }
