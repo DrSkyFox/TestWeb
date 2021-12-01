@@ -13,8 +13,15 @@ spec:
         app: test-web
     spec:
       containers:
-        - image: drskyfox/test-web:1.0.2
+        - image: drskyfox/test-web:1.0.3
           imagePullPolicy: Always
           name: kbe-test-web-service
           ports:
             - containerPort: 8080
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:postgresql://10.0.0.10/ptest
+            - name: SPRING_DATASOURCE_USERNAME
+              value: user
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: E6_y66w18o6bh7LR

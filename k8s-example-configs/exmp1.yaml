@@ -1,0 +1,74 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: wallet-api-config-test
+  namespace: default
+  uid: a6c16296-9043-47fd-9909-bc2694819428
+  resourceVersion: '14550869'
+  creationTimestamp: '2021-10-22T13:44:28Z'
+  managedFields:
+    - manager: dashboard
+      operation: Update
+      apiVersion: v1
+      time: '2021-03-18T08:14:39Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:data':
+          .: {}
+          'f:appsettings.json': {}
+data:
+  appsettings.json: |
+    {
+      "Serilog": {
+        "Using": [ "Serilog.Sinks.Console", "Serilog.Sinks.File" ],
+        "MinimumLevel": {
+          "Default": "Information",
+          "Override": {
+            "Microsoft": "Warning",
+            "Microsoft.Hosting.Lifetime": "Information",
+            "System": "Warning"
+          }
+        },
+        "WriteTo": [
+          {
+            "Name": "Console",
+            "Args": {
+              "outputTemplate": "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level}] {SourceContext}{NewLine}\t{Message}{NewLine}{Exception}"
+            }
+          }
+        ],
+        "Enrich": [
+          "FromLogContext"
+        ]
+      },
+
+      "AllowedHosts": "*",
+
+      "DbConnection": "User ID=wallet;Password=TWfBnz9VEcMIsQJ8IOGx;Host=192.168.49.1;Port=5432;Database=walletdb_api_test;Pooling=true;Connection Lifetime=0;",
+
+      "LinkTimeoutMinutes": 60,
+
+      "UseTokenAuth": false,
+
+      "ServiceKey": "wallet_api",
+      "ClientSaveServiceKey": "client_save",
+
+      "RabbitMqConfig": {
+          "Host": "192.168.49.1",
+          "VHost": "wallet-test",
+          "User": "appuser",
+          "Password": "LeJ7bg43LX3akgrOs9rA"
+      },
+      "ExternalSevices": [
+        {
+          "Name": "Google Pay",
+          "Key": "google_pay",
+          "Desc": "Служба GooglePay Wallet"
+        },
+        {
+          "Name": "Apple Pass",
+          "Key": "apple_pass",
+          "Desc": "Служба Apple Pass Wallet"
+        }
+      ]
+    }
