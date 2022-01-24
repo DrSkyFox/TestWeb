@@ -193,32 +193,124 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: wallet-m-google
+      app: wallet-client
   template:
     metadata:
-      name: wallet-m-google
+      name: wallet-client
       labels:
-        app: wallet-m-google
+        app: wallet-client
     spec:
       volumes:
         - name: config-volume
           configMap:
-            name: wallet-m-google-config
+            name: wallet-client-config
             defaultMode: 420
       containers:
-        - name: wallet-m-google
-          image: gamekeeperz/test-wallet-repo:wallet-m-googlepay-test
+        - name: wallet-client
+          image: gamekeeperz/test-wallet-repo:wallet-clientsave-test
           ports:
-            - containerPort: 5040
+            - containerPort: 5050
           resources:
             limits:
               cpu: "100m"
               memory: "100Mi"
           volumeMounts:
             - name: config-volume
-              mountPath: /app/m/google/appsettings.json
+              mountPath: /app/cl/client/appsettings.json
               subPath: appsettings.json
-          terminationMessagePath: /dev/m/google/termination-log
+          terminationMessagePath: /dev/cl/client/termination-log
+          terminationMessagePolicy: File
+          imagePullPolicy: Always
+          securityContext:
+            privileged: false
+      imagePullSecrets:
+        - name: regcred
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+
+
+---
+
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: wallet-applepass
+  namespace: serv1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wallet-applepass
+  template:
+    metadata:
+      name: wallet-applepass
+      labels:
+        app: wallet-applepass
+    spec:
+      volumes:
+        - name: config-volume
+          configMap:
+            name: wallet-apple-config
+            defaultMode: 420
+      containers:
+        - name: wallet-googlepay
+          image: gamekeeperz/test-wallet-repo:wallet-applepass-test
+          ports:
+            - containerPort: 5060
+          resources:
+            limits:
+              cpu: "100m"
+              memory: "100Mi"
+          volumeMounts:
+            - name: config-volume
+              mountPath: /app/cl/apple/appsettings.json
+              subPath: appsettings.json
+          terminationMessagePath: /dev/cl/apple/termination-log
+          terminationMessagePolicy: File
+          imagePullPolicy: Always
+          securityContext:
+            privileged: false
+      imagePullSecrets:
+        - name: regcred
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: wallet-googlepay
+  namespace: serv1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wallet-googlepay
+  template:
+    metadata:
+      name: wallet-googlepay
+      labels:
+        app: wallet-googlepay
+    spec:
+      volumes:
+        - name: config-volume
+          configMap:
+            name: wallet-google-config
+            defaultMode: 420
+      containers:
+        - name: wallet-googlepay
+          image: gamekeeperz/test-wallet-repo:wallet-googlepay-test
+          ports:
+            - containerPort: 5060
+          resources:
+            limits:
+              cpu: "100m"
+              memory: "100Mi"
+          volumeMounts:
+            - name: config-volume
+              mountPath: /app/cl/google/appsettings.json
+              subPath: appsettings.json
+          terminationMessagePath: /dev/cl/google/termination-log
           terminationMessagePolicy: File
           imagePullPolicy: Always
           securityContext:
