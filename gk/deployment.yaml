@@ -1,0 +1,229 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: wallet-manager
+  namespace: serv1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wallet-manager
+  template:
+    metadata:
+      name: wallet-manager
+      labels:
+        app: wallet-manager
+    spec:
+      volumes:
+        - name: config-volume
+          configMap:
+            name: wallet-manager
+            defaultMode: 420
+      containers:
+        - name: wallet-manager
+          image: gamekeeperz/test-wallet-repo:usermanager
+          ports:
+            - containerPort: 5010
+          resources:
+            limits:
+              cpu: "100m"
+              memory: "100Mi"
+          volumeMounts:
+            - name: config-volume
+              mountPath: /app/manager/appsettings.json
+              subPath: appsettings.json
+          terminationMessagePath: /dev/manager/termination-log
+          terminationMessagePolicy: File
+          imagePullPolicy: Always
+          securityContext:
+            privileged: false
+      imagePullSecrets:
+        - name: regcred
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      
+      
+---
+
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: wallet-m-main
+  namespace: serv1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wallet-m-main
+  template:
+    metadata:
+      name: wallet-m-main
+      labels:
+        app: wallet-m-main
+    spec:
+      volumes:
+        - name: config-volume
+          configMap:
+            name: wallet-m-main-test-config
+            defaultMode: 420
+      containers:
+        - name: wallet-m-google
+          image: gamekeeperz/test-wallet-repo:wallet-m-main-test
+          ports:
+            - containerPort: 5020
+          resources:
+            limits:
+              cpu: "100m"
+              memory: "100Mi"
+          volumeMounts:
+            - name: config-volume
+              mountPath: /app/m/main/appsettings.json
+              subPath: appsettings.json
+          terminationMessagePath: /dev/m/main/termination-log
+          terminationMessagePolicy: File
+          imagePullPolicy: Always
+          securityContext:
+            privileged: false
+      imagePullSecrets:
+        - name: regcred
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+
+---
+
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: wallet-m-applepass
+  namespace: serv1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wallet-m-applepass
+  template:
+    metadata:
+      name: wallet-m-applepass
+      labels:
+        app: wallet-m-applepass
+    spec:
+      volumes:
+        - name: config-volume
+          configMap:
+            name: wallet-m-apple
+            defaultMode: 420
+      containers:
+        - name: wallet-m-applepass
+          image: gamekeeperz/test-wallet-repo:wallet-m-applepass-test
+          ports:
+            - containerPort: 5030
+          resources:
+            limits:
+              cpu: "100m"
+              memory: "100Mi"
+          volumeMounts:
+            - name: config-volume
+              mountPath: /app/m/apple/appsettings.json
+              subPath: appsettings.json
+          terminationMessagePath: /dev/m/apple/termination-log
+          terminationMessagePolicy: File
+          imagePullPolicy: Always
+          securityContext:
+            privileged: false
+      imagePullSecrets:
+        - name: regcred
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      
+---
+
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: wallet-m-google
+  namespace: serv1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wallet-m-google
+  template:
+    metadata:
+      name: wallet-m-google
+      labels:
+        app: wallet-m-google
+    spec:
+      volumes:
+        - name: config-volume
+          configMap:
+            name: wallet-m-google-config
+            defaultMode: 420
+      containers:
+        - name: wallet-m-google
+          image: gamekeeperz/test-wallet-repo:wallet-m-googlepay-test
+          ports:
+            - containerPort: 5040
+          resources:
+            limits:
+              cpu: "100m"
+              memory: "100Mi"
+          volumeMounts:
+            - name: config-volume
+              mountPath: /app/m/google/appsettings.json
+              subPath: appsettings.json
+          terminationMessagePath: /dev/m/google/termination-log
+          terminationMessagePolicy: File
+          imagePullPolicy: Always
+          securityContext:
+            privileged: false
+      imagePullSecrets:
+        - name: regcred
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+
+
+---
+
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: wallet-client
+  namespace: serv1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wallet-m-google
+  template:
+    metadata:
+      name: wallet-m-google
+      labels:
+        app: wallet-m-google
+    spec:
+      volumes:
+        - name: config-volume
+          configMap:
+            name: wallet-m-google-config
+            defaultMode: 420
+      containers:
+        - name: wallet-m-google
+          image: gamekeeperz/test-wallet-repo:wallet-m-googlepay-test
+          ports:
+            - containerPort: 5040
+          resources:
+            limits:
+              cpu: "100m"
+              memory: "100Mi"
+          volumeMounts:
+            - name: config-volume
+              mountPath: /app/m/google/appsettings.json
+              subPath: appsettings.json
+          terminationMessagePath: /dev/m/google/termination-log
+          terminationMessagePolicy: File
+          imagePullPolicy: Always
+          securityContext:
+            privileged: false
+      imagePullSecrets:
+        - name: regcred
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30

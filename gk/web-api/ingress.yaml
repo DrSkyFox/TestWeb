@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+  labels:
+    app.kubernetes.io/instance: wallet-api
+    app.kubernetes.io/name: wallet-api
+  name: wallet-api
+  namespace: wallet
+spec:
+  tls:
+    - hosts:
+        - api.cl2.skyfactory.fun
+      secretName: apicl2-sky
+  ingressClassName: nginx
+  rules:
+    - host: api.cl2.skyfactory.fun
+      http:
+        paths:
+          - backend:
+              service:
+                name: wallet-api
+                port:
+                  number: 9000
+            path: /
+            pathType: ImplementationSpecific

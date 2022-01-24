@@ -1,8 +1,8 @@
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: wallet-manager
-  namespace: serv1
+  name: wallet-manager-config
+  namespace: wallet
 data:
   appsettings.json: |
     {
@@ -28,8 +28,8 @@ data:
           "FromLogContext"
         ]
       },
-      "AllowedHosts": "*",
-      "UserDbConnection": "User ID=test;Password=test;Host=172.31.32.4;Port=5432;Database=manager;Pooling=true;Connection Lifetime=0;"
+    "AllowedHosts": "*",
+    "UserDbConnection": "User ID=wallet;Password=wallet22!;Host=172.31.32.7;Port=5432;Database=clientmanager;Pooling=true;Connection Lifetime=0;"
     }
 
 ---
@@ -38,8 +38,8 @@ data:
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: wallet-m-main-test-config
-  namespace: serv1
+  name: wallet-m-main-config
+  namespace: wallet
 data:
   appsettings.json: |
     {
@@ -66,29 +66,29 @@ data:
         ]
       },
       "AllowedHosts": "*",
-      "DbConnection": "User ID=test;Password=test;Host=172.31.32.4;Port=5432;Database=web-api;Pooling=true;Connection Lifetime=0;",
-      "UserDbConnection": "User ID=test;Password=test;Host=172.31.32.4;Port=5432;Database=manager;Pooling=true;Connection Lifetime=0;",
+      "DbConnection": "User ID=wallet;Password=wallet22!;Host=172.31.32.7;Port=5432;Database=web-api;Pooling=true;Connection Lifetime=0;",
+      "UserDbConnection": "User ID=wallet;Password=wallet22!;Host=172.31.32.7;Port=5432;Database=clientmanager;Pooling=true;Connection Lifetime=0;",
       "ExtServices": [
         {
           "Key": "GooglePay",
           "Name": "GooglePay",
-          "ManagementUrl": "https://managegpass.wallet.shelter.ru:10000/Owners/Details/{businessId}"
+          "ManagementUrl": "https://g.mng.cl2.skyfactory.fun/Owners/Details/{businessId}"
         },
         {
           "Key": "ApplePass",
           "Name": "ApplePass",
-          "ManagementUrl": "https://manageapass.wallet.shelter.ru:10000/Owners/Details/{businessId}"
+          "ManagementUrl": "https://a.mng.cl2.skyfactory.fun/Owners/Details/{businessId}"
         }
       ]
     }
-
+    
 ---
 
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: wallet-m-apple
-  namespace: serv1
+  name: wallet-m-apple-config
+  namespace: wallet
 data:
   appsettings.json: |
     {
@@ -115,16 +115,16 @@ data:
         ]
       },
       "AllowedHosts": "*",
-      "DbConnection": "User ID=test;Password=test;Host=172.31.32.4;Port=5432;Database=web-api-apple;Pooling=true;Connection Lifetime=0;"
+      "DbConnection": "User ID=wallet;Password=wallet22!;Host=172.31.32.7;Port=5432;Database=web-api-apple;Pooling=true;Connection Lifetime=0;"
     }
-
+    
 ---
 
 kind: ConfigMap
 apiVersion: v1
 metadata:
   name: wallet-m-google-config
-  namespace: serv1
+  namespace: wallet
 data:
   appsettings.json: |
     {
@@ -151,10 +151,10 @@ data:
         ]
       },
       "AllowedHosts": "*",
-      "DbConnection": "User ID=test;Password=test;Host=172.31.32.4;Port=5432;Database=web-api-gpay;Pooling=true;Connection Lifetime=0;"
+      "DbConnection": "User ID=wallet;Password=wallet22!;Host=172.31.32.7;Port=5432;Database=web-api-gpay;Pooling=true;Connection Lifetime=0;"
     }
-
-
+    
+    
 
 
 ---
@@ -163,111 +163,111 @@ data:
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: wallet-client
-  namespace: serv1
+  name: wallet-client-coinfig
+  namespace: wallet
 data:
   appsettings.json: |
-    {
-    "Serilog": {
-      "Using": [ "Serilog.Sinks.Console", "Serilog.Sinks.File" ],
-      "MinimumLevel": {
-        "Default": "Information",
-        "Override": {
-          "Microsoft": "Warning",
-          "Microsoft.Hosting.Lifetime": "Information",
-          "System": "Warning"
-        }
+      {
+      "Serilog": {
+        "Using": [ "Serilog.Sinks.Console", "Serilog.Sinks.File" ],
+        "MinimumLevel": {
+          "Default": "Information",
+          "Override": {
+            "Microsoft": "Warning",
+            "Microsoft.Hosting.Lifetime": "Information",
+            "System": "Warning"
+          }
+        },
+        "WriteTo": [
+          {
+            "Name": "Console",
+            "Args": {
+              "outputTemplate": "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level}] {SourceContext}{NewLine}\t{Message}{NewLine}{Exception}"
+            }
+          }
+        ],
+        "Enrich": [
+          "FromLogContext"
+        ]
       },
-      "WriteTo": [
+      "AllowedHosts": "*",
+      "DbConnection": "User ID=wallet;Password=wallet22!;Host=172.31.32.7;Port=5432;Database=web-api;Pooling=true;Connection Lifetime=0;",
+      "ServiceKey": "client_save",
+      "WalletCardStorageServiceKey": "wallet_api",
+      "OriginUrl": "https://client.api.cl2.skyfactory.fun",
+      "RabbitMqConfig": {
+                    "Host": "rmq-rabbitmq.broker",
+                    "VHost": "wallet-vhost",
+                    "User": "wallet",
+                    "Password": "walletrmq1!"
+      },
+      "ExternalSevices": [
         {
-          "Name": "Console",
-          "Args": {
-            "outputTemplate": "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level}] {SourceContext}{NewLine}\t{Message}{NewLine}{Exception}"
-          }
+          "Name": "Google Pay",
+          "Key": "google_pay",
+          "OriginUrl_": "https://g.client.api.cl2.skyfactory.fun",
+          "Desc": "Служба GooglePay Wallet",
+          "SaveImage": "google.svg",
+          "DisabledSaveImage": "google_disabled.svg"
+        },
+        {
+          "Name": "Apple Pass",
+          "Key": "apple_pass",
+          "OriginUrl_": "https://a.client.api.cl2.skyfactory.fun",
+          "Desc": "Служба Apple Pass Wallet",
+          "SaveImage": "apple.svg",
+          "DisabledSaveImage": "apple_disabled.svg"
         }
-      ],
-      "Enrich": [
-        "FromLogContext"
       ]
-    },
-    "AllowedHosts": "*",
-    "DbConnection": "User ID=test;Password=test;Host=172.31.32.4;Port=5432;Database=web-api;Pooling=true;Connection Lifetime=0;",
-    "ServiceKey": "client_save",
-    "WalletCardStorageServiceKey": "wallet_api",
-    "OriginUrl": "https://clientsave.wallet.shelter.ru:10000",
-    "RabbitMqConfig": {
-                  "Host": "rmq-rabbitmq.rabbit",
-                  "VHost": "wallet-vhost",
-                  "User": "user",
-                  "Password": "admin2021!"
-    },
-    "ExternalSevices": [
-      {
-        "Name": "Google Pay",
-        "Key": "google_pay",
-        "OriginUrl_": "https://googlepay.wallet.shelter.ru:10000",
-        "Desc": "Служба GooglePay Wallet",
-        "SaveImage": "google.svg",
-        "DisabledSaveImage": "google_disabled.svg"
-      },
-      {
-        "Name": "Apple Pass",
-        "Key": "apple_pass",
-        "OriginUrl_": "https://applepass.wallet.shelter.ru:10000",
-        "Desc": "Служба Apple Pass Wallet",
-        "SaveImage": "apple.svg",
-        "DisabledSaveImage": "apple_disabled.svg"
-      }
-    ]
     }
-
+    
 ---
 
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: wallet-apple
-  namespace: serv1
+  name: wallet-apple-config
+  namespace: wallet
 data:
   appsettings.json: |
-    {
-    "Serilog": {
-          "Using": [ "Serilog.Sinks.Console", "Serilog.Sinks.File" ],
-          "MinimumLevel": {
-            "Default": "Information",
-            "Override": {
-                  "Microsoft": "Warning",
-                  "Microsoft.Hosting.Lifetime": "Information",
-                  "System": "Warning",
-                  "Microsoft.EntityFrameworkCore": "Warning",
-                  "WalletService": "Debug"
+      {
+      "Serilog": {
+            "Using": [ "Serilog.Sinks.Console", "Serilog.Sinks.File" ],
+            "MinimumLevel": {
+              "Default": "Information",
+              "Override": {
+                    "Microsoft": "Warning",
+                    "Microsoft.Hosting.Lifetime": "Information",
+                    "System": "Warning",
+                    "Microsoft.EntityFrameworkCore": "Warning",
+                    "WalletService": "Debug"
+              }
+            },
+            "WriteTo": [
+              {
+                    "Name": "Console",
+                    "Args": {
+                      "outputTemplate": "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level}] {SourceContext}{NewLine}\t{Message}{NewLine}{Exception}"
+                    }
+              }
+            ],
+            "Enrich": [
+              "FromLogContext"
+            ]
+      },
+      "AllowedHosts": "*",
+      "ServiceKey": "apple_pass",
+      "OriginUrl": "https://a.client.api.cl2.skyfactory.fun",
+      "DbConnection": "User ID=wallet;Password=wallet22!;Host=172.31.32.7;Port=5432;Database=web-api-apple;Pooling=true;Connection Lifetime=0;",
+      "WalletCardDataServiceKey": "wallet_api",
+      "RabbitMqConfig": {
+            "Connection": {
+                  "Host": "rmq-rabbitmq.broker",
+                  "VHost": "wallet-vhost",
+                  "User": "wallet",
+                  "Password": "walletrmq1!"
             }
-          },
-          "WriteTo": [
-            {
-                  "Name": "Console",
-                  "Args": {
-                    "outputTemplate": "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level}] {SourceContext}{NewLine}\t{Message}{NewLine}{Exception}"
-                  }
-            }
-          ],
-          "Enrich": [
-            "FromLogContext"
-          ]
-    },
-    "AllowedHosts": "*",
-    "ServiceKey": "apple_pass",
-    "OriginUrl": "https://applepass.wallet.shelter.ru:10000",
-    "DbConnection": "User ID=test;Password=test;Host=172.31.32.4;Port=5432;Database=web-api-apple;Pooling=true;Connection Lifetime=0;",
-    "WalletCardDataServiceKey": "wallet_api",
-    "RabbitMqConfig": {
-          "Connection": {
-                                  "Host": "rmq-rabbitmq.rabbit",
-                                  "VHost": "wallet-vhost",
-                                  "User": "user",
-                                  "Password": "admin2021!"
-          }
-    },
+      },
     "ApplePassConfig": {
     "PassTypeIdentifier": "pass.com.game-keeper.wallet",
     "TeamIdentifier": "YQ72NZ88UD",
@@ -281,13 +281,13 @@ data:
     "PushAuthorization": "ff5c7e6778e248ca878f57243d7e6632"
     }
     }
-
+    
 ---
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: wallet-google
-  namespace: serv1
+  name: wallet-google-config
+  namespace: wallet
 data:
   appsettings.json: |
     {
@@ -316,16 +316,16 @@ data:
       "AllowedHosts": "*",
       "RabbitMqConfig": {
         "Connection": {
-                    "Host": "rmq-rabbitmq.rabbit",
-                    "VHost": "wallet-test",
-                    "User": "user",
-                    "Password": "admin2021!"
+                    "Host": "rmq-rabbitmq.broker",
+                    "VHost": "wallet-vhost",
+                    "User": "wallet",
+                    "Password": "walletrmq1!"
         }
       },
       "ServiceKey": "google_pay",
       "WalletCardDataServiceKey": "wallet_api",
-      "OriginUrl": "https://googlepay.wallet.shelter.ru:10000",
+      "OriginUrl": "https://g.client.api.cl2.skyfactory.fun",
       "GooglePayServiceAccountFile": "PrivateData/google_pay_private.json",
       "GoogleSaveLink": "https://pay.google.com/gp/v/save/{token}",
-      "DbConnection": "User ID=test;Password=test;Host=172.31.32.4;Port=5432;Database=web-api-gpay;Pooling=true;Connection Lifetime=0;",
+      "DbConnection": "User ID=wallet;Password=wallet22!;Host=172.31.32.7;Port=5432;Database=web-api-gpay;Pooling=true;Connection Lifetime=0;",
     }

@@ -1,18 +1,51 @@
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: test-web-ingress
-  annotations:
-    kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/rewrite-target: /
-spec:
-  rules:
-    - http:
-        paths:
-          - path: /
-            backend:
-              service:
-                name: test-web-service
-                port:
-                  number: 8080
-            pathType: Prefix
+{
+  "Serilog": {
+    "Using": [ "Serilog.Sinks.Console", "Serilog.Sinks.File" ],
+    "MinimumLevel": {
+      "Default": "Information",
+      "Override": {
+        "Microsoft": "Warning",
+        "Microsoft.Hosting.Lifetime": "Information",
+        "System": "Warning",
+        "Microsoft.EntityFrameworkCore": "Warning",
+        "WalletService": "Debug"
+      }
+    },
+    "WriteTo": [
+      {
+        "Name": "Console",
+        "Args": {
+          "outputTemplate": "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level}] {SourceContext}{NewLine}\t{Message}{NewLine}{Exception}"
+        }
+      }
+    ],
+    "Enrich": [
+        "FromLogContext"
+    ]
+  },
+  "AllowedHosts": "*",
+  "ServiceKey": "apple_pass",
+  "OriginUrl": "https://applepass.wallet.shelter.ru:10000",
+  "DbConnection": "User ID=test;Password=test;Host=172.31.32.4;Port=5432;Database=web-api-apple;Pooling=true;Connection Lifetime=0;",
+  "WalletCardDataServiceKey": "wallet_api",
+  "RabbitMqConfig": {
+    "Connection": {
+      "Host": "rmq-rabbitmq.rabbit",
+      "VHost": "wallet-vhost",
+      "User": "user",
+      "Password": "admin2021!"
+    }
+  },
+  "ApplePassConfig": {
+    "PassTypeIdentifier": "pass.com.game-keeper.wallet",
+    "TeamIdentifier": "YQ72NZ88UD",
+    "AppleWwdrCertFile": "PrivateData/AppleWWDRCA.cer",
+    "PassTypeIdCertFile": "PrivateData/passGK20211220.p12",
+    "PassTypeIdPassword": "2S,19AZw@OJ\\i}EBe"
+  },
+  "AndroidAsApplePassConfig": {
+    "PassTypeIdentifier": "pass.com.game-keeper.wallet",
+    "PushUrl": "https://walletpasses.appspot.com/api/v1/push",
+    "PushAuthorization": "ff5c7e6778e248ca878f57243d7e6632"
+  }
+}

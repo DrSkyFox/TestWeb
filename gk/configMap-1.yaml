@@ -1,0 +1,46 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: wallet-google
+  namespace: serv1
+data:
+  appsettings.json: |
+    {
+      "Serilog": {
+        "Using": [ "Serilog.Sinks.Console", "Serilog.Sinks.File" ],
+        "MinimumLevel": {
+          "Default": "Information",
+          "Override": {
+            "Microsoft": "Warning",
+            "Microsoft.Hosting.Lifetime": "Information",
+            "System": "Warning"
+          }
+        },
+        "WriteTo": [
+          {
+            "Name": "Console",
+            "Args": {
+              "outputTemplate": "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level}] {SourceContext}{NewLine}\t{Message}{NewLine}{Exception}"
+            }
+          }
+        ],
+        "Enrich": [
+          "FromLogContext"
+        ]
+      },
+      "AllowedHosts": "*",
+      "RabbitMqConfig": {
+        "Connection": {
+                    "Host": "rmq-rabbitmq.rabbit",
+                    "VHost": "wallet-test",
+                    "User": "user",
+                    "Password": "admin2021!"
+        }
+      },
+      "ServiceKey": "google_pay",
+      "WalletCardDataServiceKey": "wallet_api",
+      "OriginUrl": "https://googlepay.wallet.shelter.ru:10000",
+      "GooglePayServiceAccountFile": "PrivateData/google_pay_private.json",
+      "GoogleSaveLink": "https://pay.google.com/gp/v/save/{token}",
+      "DbConnection": "User ID=test;Password=test;Host=172.31.32.4;Port=5432;Database=web-api-gpay;Pooling=true;Connection Lifetime=0;",
+    }

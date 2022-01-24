@@ -1,0 +1,47 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  labels:
+    app.kubernetes.io/instance: wallet-m
+    app.kubernetes.io/name: wallet-m
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+  name: wallet-m
+  namespace: serv1
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: mng.api.cl2.skyfactory.fun
+      http:
+        paths:
+          - path: /(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+                  service:
+                    name: wallet-m-main
+                    port:
+                      number: 8002
+          - path: /apple(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: wallet-m-applepass
+                port:
+                  number: 8003
+          - path: /google(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: wallet-m-google
+                port:
+                  number: 8004
+          - path: /manage(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: wallet-manager
+                port:
+                  number: 8001
+

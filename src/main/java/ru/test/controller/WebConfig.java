@@ -14,12 +14,10 @@ public class WebConfig implements WebMvcConfigurer {
     @Value("${springdoc.swagger-ui.path}")
     private  String urlDefault;
 
-    @Value("${spring.root}:''")
-    private String rootUrl;
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("forward:" + rootUrl + "/" + urlDefault);
+        registry.addViewController("/").setViewName("redirect:" + urlDefault);
     }
 
 

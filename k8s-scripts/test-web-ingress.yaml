@@ -2,14 +2,21 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ingress-testweb
+  namespace: test-service
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
 spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - cl2.skyfactory.fun
+      secretName: cl2-sky
   rules:
-    - http:
+    - host: cl2.skyfactory.fun
+      http:
         paths:
           - path: /
-            pathType: Prefix
+            pathType: ImplementationSpecific
             backend:
               service:
                 name: test-web

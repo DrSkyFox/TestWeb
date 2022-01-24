@@ -1,0 +1,55 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: wallet-api-config-test
+  namespace: wallet
+data:
+  appsettings.json: |
+    {
+      "Serilog": {
+        "Using": [ "Serilog.Sinks.Console", "Serilog.Sinks.File" ],
+        "MinimumLevel": {
+          "Default": "Information",
+          "Override": {
+            "Microsoft": "Warning",
+            "Microsoft.Hosting.Lifetime": "Information",
+            "System": "Warning"
+          }
+        },
+        "WriteTo": [
+          {
+            "Name": "Console",
+            "Args": {
+              "outputTemplate": "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level}] {SourceContext}{NewLine}\t{Message}{NewLine}{Exception}"
+            }
+          }
+        ],
+        "Enrich": [
+          "FromLogContext"
+        ]
+      },
+      "AllowedHosts": "*",
+      "DbConnection": "User ID=wallet;Password=wallet22!;Host=172.31.32.7;Port=5432;Database=web-api;Pooling=true;Connection Lifetime=0;",
+      "LinkTimeoutMinutes": 60,
+      "UseTokenAuth": false,
+      "ServiceKey": "wallet_api",
+      "ClientSaveServiceKey": "client_save",
+      "RabbitMqConfig": {
+          "Host": "rmq-rabbitmq.broker",
+          "VHost": "wallet-vhost",
+          "User": "wallet",
+          "Password": "walletrmq1!"
+      },
+      "ExternalSevices": [
+        {
+          "Name": "Google Pay",
+          "Key": "google_pay",
+          "Desc": "Служба GooglePay Wallet"
+        },
+        {
+          "Name": "Apple Pass",
+          "Key": "apple_pass",
+          "Desc": "Служба Apple Pass Wallet"
+        }
+      ]
+    }
