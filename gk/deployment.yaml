@@ -253,7 +253,7 @@ spec:
             name: wallet-apple-config
             defaultMode: 420
       containers:
-        - name: wallet-googlepay
+        - name: wallet-applepass
           image: gamekeeperz/test-wallet-repo:wallet-applepass-test
           ports:
             - containerPort: 5060
@@ -301,7 +301,7 @@ spec:
         - name: wallet-googlepay
           image: gamekeeperz/test-wallet-repo:wallet-googlepay-test
           ports:
-            - containerPort: 5060
+            - containerPort: 5070
           resources:
             limits:
               cpu: "100m"

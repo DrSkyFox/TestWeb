@@ -70,6 +70,7 @@ spec:
       port: 8004
       targetPort: 5040
 
+
 ---
 
 apiVersion: v1
@@ -77,15 +78,53 @@ kind: Service
 metadata:
   labels:
     visualize: "true"
-  name: test-web
+  name: wallet-client
   namespace: serv1
 spec:
   selector:
-    app: test-web
+    app: wallet-client
   ports:
-    - name: 8005-8080
+    - name: 8005-5050
       protocol: TCP
       port: 8005
-      targetPort: 8080
+      targetPort: 5050
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    visualize: "true"
+  name: wallet-applepass
+  namespace: serv1
+spec:
+  selector:
+    app: wallet-applepass
+  ports:
+    - name: 8006-5060
+      protocol: TCP
+      port: 8006
+      targetPort: 5060
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    visualize: "true"
+  name: wallet-googlepay
+  namespace: serv1
+spec:
+  selector:
+    app: wallet-googlepay
+  ports:
+    - name: 8007-5070
+      protocol: TCP
+      port: 8007
+      targetPort: 5070
+
+
 
 
