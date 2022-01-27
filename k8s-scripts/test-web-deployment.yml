@@ -14,7 +14,7 @@ spec:
         app: test-web
     spec:
       containers:
-        - image: drskyfox/test-web:1.0.4
+        - image: drskyfox/test-web:1.0.5
           imagePullPolicy: Always
           name: kbe-test-web-service
           resources:
@@ -26,6 +26,10 @@ spec:
           env:
             - name: SPRING_DATASOURCE_URL
               value: jdbc:postgresql://172.31.32.7/test
+            - name: SPRING_RABBITMQ_VIRTUAL-HOST
+              value: wallet-vhost
+            - name: SPRING_RABBITMQ_HOST
+              value: rmq-rabbitmq.broker.svc.cluster.local
             - name: SPRING_DATASOURCE_USERNAME
               value: test
             - name: SPRING_DATASOURCE_PASSWORD

@@ -4,7 +4,7 @@ metadata:
   labels:
     visualize: "true"
   name: wallet-manager
-  namespace: serv1
+  namespace: wallet
 spec:
   selector:
     app: wallet-manager
@@ -24,7 +24,7 @@ metadata:
   labels:
     visualize: "true"
   name: wallet-m-main
-  namespace: serv1
+  namespace: wallet
 spec:
   selector:
     app: wallet-m-main
@@ -42,7 +42,7 @@ metadata:
   labels:
     visualize: "true"
   name: wallet-m-applepass
-  namespace: serv1
+  namespace: wallet
 spec:
   selector:
     app: wallet-m-applepass
@@ -60,7 +60,7 @@ metadata:
   labels:
     visualize: "true"
   name: wallet-m-google
-  namespace: serv1
+  namespace: wallet
 spec:
   selector:
     app: wallet-m-google
@@ -79,7 +79,7 @@ metadata:
   labels:
     visualize: "true"
   name: wallet-client
-  namespace: serv1
+  namespace: wallet
 spec:
   selector:
     app: wallet-client
@@ -97,7 +97,7 @@ metadata:
   labels:
     visualize: "true"
   name: wallet-applepass
-  namespace: serv1
+  namespace: wallet
 spec:
   selector:
     app: wallet-applepass
@@ -115,7 +115,7 @@ metadata:
   labels:
     visualize: "true"
   name: wallet-googlepay
-  namespace: serv1
+  namespace: wallet
 spec:
   selector:
     app: wallet-googlepay

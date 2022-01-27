@@ -2,7 +2,7 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: wallet-manager
-  namespace: serv1
+  namespace: wallet
 spec:
   replicas: 1
   selector:
@@ -17,7 +17,7 @@ spec:
       volumes:
         - name: config-volume
           configMap:
-            name: wallet-manager
+            name: wallet-manager-config
             defaultMode: 420
       containers:
         - name: wallet-manager
@@ -49,7 +49,7 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: wallet-m-main
-  namespace: serv1
+  namespace: wallet
 spec:
   replicas: 1
   selector:
@@ -64,7 +64,7 @@ spec:
       volumes:
         - name: config-volume
           configMap:
-            name: wallet-m-main-test-config
+            name: wallet-m-main-config
             defaultMode: 420
       containers:
         - name: wallet-m-google
@@ -95,7 +95,7 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: wallet-m-applepass
-  namespace: serv1
+  namespace: wallet
 spec:
   replicas: 1
   selector:
@@ -110,7 +110,7 @@ spec:
       volumes:
         - name: config-volume
           configMap:
-            name: wallet-m-apple
+            name: wallet-m-apple-config
             defaultMode: 420
       containers:
         - name: wallet-m-applepass
@@ -141,7 +141,7 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: wallet-m-google
-  namespace: serv1
+  namespace: wallet
 spec:
   replicas: 1
   selector:
@@ -188,7 +188,7 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: wallet-client
-  namespace: serv1
+  namespace: wallet
 spec:
   replicas: 1
   selector:
@@ -203,7 +203,7 @@ spec:
       volumes:
         - name: config-volume
           configMap:
-            name: wallet-client-config
+            name: wallet-client-coinfig
             defaultMode: 420
       containers:
         - name: wallet-client
@@ -235,7 +235,7 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: wallet-applepass
-  namespace: serv1
+  namespace: wallet
 spec:
   replicas: 1
   selector:
@@ -280,7 +280,7 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: wallet-googlepay
-  namespace: serv1
+  namespace: wallet
 spec:
   replicas: 1
   selector:
