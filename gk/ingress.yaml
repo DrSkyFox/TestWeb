@@ -5,6 +5,7 @@ metadata:
     app.kubernetes.io/instance: wallet-m
     app.kubernetes.io/name: wallet-m
   annotations:
+    nginx.ingress.kubernetes.io/whitelist-source-range: 81.94.140.194
     nginx.ingress.kubernetes.io/rewrite-target: /$1
     nginx.ingress.kubernetes.io/use-regex: "true"
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
@@ -12,8 +13,12 @@ metadata:
   namespace: wallet
 spec:
   ingressClassName: nginx
+  tls:
+    - hosts:
+        - mng.api.cloud.game-keeper.com
+      secretName: mng-api-gk-com
   rules:
-    - host: mng.api.cl2.skyfactory.fun
+    - host: mng.api.cloud.game-keeper.com
       http:
         paths:
           - path: /(/|$)(.*)

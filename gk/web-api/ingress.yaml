@@ -11,11 +11,11 @@ metadata:
 spec:
   tls:
     - hosts:
-        - api.cl2.skyfactory.fun
-      secretName: apicl2-sky
+        - api.cloud.game-keeper.com
+      secretName: api-cl-gk-com
   ingressClassName: nginx
   rules:
-    - host: api.cl2.skyfactory.fun
+    - host: api.cloud.game-keeper.com
       http:
         paths:
           - backend:

@@ -5,6 +5,7 @@ metadata:
   namespace: test-service
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
+
 spec:
   ingressClassName: nginx
   tls:
@@ -22,7 +23,6 @@ spec:
                 name: test-web
                 port:
                   number: 8080
-
 
 #    - host: echo1.example.com
 #      http:

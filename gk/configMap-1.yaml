@@ -32,7 +32,7 @@ data:
     "DbConnection": "User ID=wallet;Password=wallet22!;Host=172.31.32.7;Port=5432;Database=web-api;Pooling=true;Connection Lifetime=0;",
     "ServiceKey": "client_save",
     "WalletCardStorageServiceKey": "wallet_api",
-    "OriginUrl": "https://client.api.cl2.skyfactory.fun",
+    "OriginUrl": "https://cl.api.cloud.game-keeper.com",
 
       "RabbitMqConfig": {
                   "Host": "rmq-rabbitmq.broker.svc.cluster.local",
@@ -44,7 +44,7 @@ data:
       {
         "Name": "Google Pay",
         "Key": "google_pay",
-        "OriginUrl_": "https://g.client.api.cl2.skyfactory.fun",
+        "OriginUrl_": "https://g.cl.api.cloud.game-keeper.com",
         "Desc": "Служба GooglePay Wallet",
         "SaveImage": "google.svg",
         "DisabledSaveImage": "google_disabled.svg"
@@ -52,7 +52,7 @@ data:
       {
         "Name": "Apple Pass",
         "Key": "apple_pass",
-        "OriginUrl_": "https://a.client.api.cl2.skyfactory.fun",
+        "OriginUrl_": "https://a.cl.api.cloud.game-keeper.com",
         "Desc": "Служба Apple Pass Wallet",
         "SaveImage": "apple.svg",
         "DisabledSaveImage": "apple_disabled.svg"
@@ -96,15 +96,14 @@ data:
     },
     "AllowedHosts": "*",
     "ServiceKey": "apple_pass",
-    "OriginUrl": "https://a.client.api.cl2.skyfactory.fun",
+    "OriginUrl": "https://a.cl.api.cloud.game-keeper.com",
     "DbConnection": "User ID=wallet;Password=wallet22!;Host=172.31.32.7;Port=5432;Database=web-api-apple;Pooling=true;Connection Lifetime=0;",
     "WalletCardDataServiceKey": "wallet_api",
       "RabbitMqConfig": {
-            "Connection": {
-                  "Host": "rmq-rabbitmq.broker.svc.cluster.local",
-                  "VHost": "wallet-vhost",
-                  "User": "wallet",
-                  "Password": "walletrmq1!"
+          "Host": "rmq-rabbitmq.broker",
+          "VHost": "wallet-vhost",
+          "User": "wallet",
+          "Password": "walletrmq1!"
             }
       },
     "ApplePassConfig": {
@@ -154,16 +153,15 @@ data:
       },
       "AllowedHosts": "*",
       "RabbitMqConfig": {
-            "Connection": {
-                  "Host": "rmq-rabbitmq.broker.svc.cluster.local",
-                  "VHost": "wallet-vhost",
-                  "User": "wallet",
-                  "Password": "walletrmq1!"
+          "Host": "rmq-rabbitmq.broker",
+          "VHost": "wallet-vhost",
+          "User": "wallet",
+          "Password": "walletrmq1!"
             }
       },
       "ServiceKey": "google_pay",
       "WalletCardDataServiceKey": "wallet_api",
-      "OriginUrl": "https://g.client.api.cl2.skyfactory.fun",
+      "OriginUrl": "https://g.cl.api.cloud.game-keeper.com",
       "GooglePayServiceAccountFile": "PrivateData/google_pay_private.json",
       "GoogleSaveLink": "https://pay.google.com/gp/v/save/{token}",
       "DbConnection": "User ID=wallet;Password=wallet22!;Host=172.31.32.7;Port=5432;Database=web-api-gpay;Pooling=true;Connection Lifetime=0;",

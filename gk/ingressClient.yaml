@@ -1,0 +1,53 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  labels:
+    app.kubernetes.io/instance: wallet-client
+    app.kubernetes.io/name: wallet-client
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+  name: wallet-client
+  namespace: wallet
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - cl.api.cloud.game-keeper.com
+      secretName: cl-api-cld-gk-com
+    - hosts:
+        - a.cl.api.cloud.game-keeper.com
+      secretName: a-cl-api-cld-gk-com
+    - hosts:
+        - g.cl.api.cloud.game-keeper.com
+      secretName: g-cl-api-cld-gk-com
+  rules:
+    - host: cl.api.cloud.game-keeper.com
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+                  service:
+                    name: wallet-client
+                    port:
+                      number: 8005
+    - host: a.cl.api.cloud.game-keeper.com
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: wallet-applepass
+                port:
+                  number: 8006
+    - host: g.cl.api.cloud.game-keeper.com
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: wallet-googlepay
+                port:
+                  number: 8007
