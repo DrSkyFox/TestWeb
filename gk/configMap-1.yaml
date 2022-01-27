@@ -1,7 +1,7 @@
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: wallet-client-coinfig
+  name: wallet-client-config
   namespace: wallet
 data:
   appsettings.json: |
@@ -35,10 +35,10 @@ data:
     "OriginUrl": "https://client.api.cl2.skyfactory.fun",
 
       "RabbitMqConfig": {
-          "Host": "rmq-rabbitmq.broker",
-          "VHost": "wallet-vhost",
-          "User": "wallet",
-          "Password": "walletrmq1!"
+                  "Host": "rmq-rabbitmq.broker.svc.cluster.local",
+                  "VHost": "wallet-vhost",
+                  "User": "wallet",
+                  "Password": "walletrmq1!"
       },
     "ExternalSevices": [
       {
@@ -100,10 +100,12 @@ data:
     "DbConnection": "User ID=wallet;Password=wallet22!;Host=172.31.32.7;Port=5432;Database=web-api-apple;Pooling=true;Connection Lifetime=0;",
     "WalletCardDataServiceKey": "wallet_api",
       "RabbitMqConfig": {
-          "Host": "rmq-rabbitmq.broker",
-          "VHost": "wallet-vhost",
-          "User": "wallet",
-          "Password": "walletrmq1!"
+            "Connection": {
+                  "Host": "rmq-rabbitmq.broker.svc.cluster.local",
+                  "VHost": "wallet-vhost",
+                  "User": "wallet",
+                  "Password": "walletrmq1!"
+            }
       },
     "ApplePassConfig": {
     "PassTypeIdentifier": "pass.com.game-keeper.wallet",
@@ -152,10 +154,12 @@ data:
       },
       "AllowedHosts": "*",
       "RabbitMqConfig": {
-          "Host": "rmq-rabbitmq.broker",
-          "VHost": "wallet-vhost",
-          "User": "wallet",
-          "Password": "walletrmq1!"
+            "Connection": {
+                  "Host": "rmq-rabbitmq.broker.svc.cluster.local",
+                  "VHost": "wallet-vhost",
+                  "User": "wallet",
+                  "Password": "walletrmq1!"
+            }
       },
       "ServiceKey": "google_pay",
       "WalletCardDataServiceKey": "wallet_api",
