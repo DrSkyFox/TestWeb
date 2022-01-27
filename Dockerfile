@@ -2,7 +2,7 @@ FROM openjdk:17-ea-22-oraclelinux8
 RUN useradd -M -U docker
 USER docker
 EXPOSE 8080
-ARG JAR_FILE=target/TestWeb-0.0.1-SNAPSHOT.jar
+ARG JAR_FILE=target/TestWeb-1.0.5-SNAPSHOT.jar
 WORKDIR opt/app
 LABEL custom.size=100
 LABEL custom.msg="Hello, Mr. Unknow! Tell me.. Why u asking me"
