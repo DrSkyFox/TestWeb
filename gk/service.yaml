@@ -9,10 +9,10 @@ spec:
   selector:
     app: wallet-manager
   ports:
-    - name: 8001-5010
+    - name: 8001-5000
       protocol: TCP
       port: 8001
-      targetPort: 5010
+      targetPort: 5000
       
       
 ---
@@ -29,10 +29,10 @@ spec:
   selector:
     app: wallet-m-main
   ports:
-    - name: 8002-5020
+    - name: 8002-5000
       protocol: TCP
       port: 8002
-      targetPort: 5020
+      targetPort: 5000
       
 ---
 
@@ -47,10 +47,10 @@ spec:
   selector:
     app: wallet-m-applepass
   ports:
-    - name: 8003-5030
+    - name: 8003-5000
       protocol: TCP
       port: 8003
-      targetPort: 5030
+      targetPort: 5000
       
 ---
 
@@ -65,10 +65,10 @@ spec:
   selector:
     app: wallet-m-google
   ports:
-    - name: 8004-5040
+    - name: 8004-5000
       protocol: TCP
       port: 8004
-      targetPort: 5040
+      targetPort: 5000
 
 
 ---
@@ -84,10 +84,10 @@ spec:
   selector:
     app: wallet-client
   ports:
-    - name: 8005-5050
+    - name: 8005-5000
       protocol: TCP
       port: 8005
-      targetPort: 5050
+      targetPort: 5000
 
 ---
 
@@ -102,10 +102,10 @@ spec:
   selector:
     app: wallet-applepass
   ports:
-    - name: 8006-5060
+    - name: 8006-5000
       protocol: TCP
       port: 8006
-      targetPort: 5060
+      targetPort: 5000
 
 ---
 
@@ -120,10 +120,10 @@ spec:
   selector:
     app: wallet-googlepay
   ports:
-    - name: 8007-5070
+    - name: 8007-5000
       protocol: TCP
       port: 8007
-      targetPort: 5070
+      targetPort: 5000
 
 
 

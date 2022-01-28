@@ -104,8 +104,7 @@ data:
           "VHost": "wallet-vhost",
           "User": "wallet",
           "Password": "walletrmq1!"
-            }
-      },
+            },
     "ApplePassConfig": {
     "PassTypeIdentifier": "pass.com.game-keeper.wallet",
     "TeamIdentifier": "YQ72NZ88UD",
@@ -157,12 +156,11 @@ data:
           "VHost": "wallet-vhost",
           "User": "wallet",
           "Password": "walletrmq1!"
-            }
-      },
+            },
       "ServiceKey": "google_pay",
       "WalletCardDataServiceKey": "wallet_api",
       "OriginUrl": "https://g.cl.api.cloud.game-keeper.com",
       "GooglePayServiceAccountFile": "PrivateData/google_pay_private.json",
       "GoogleSaveLink": "https://pay.google.com/gp/v/save/{token}",
-      "DbConnection": "User ID=wallet;Password=wallet22!;Host=172.31.32.7;Port=5432;Database=web-api-gpay;Pooling=true;Connection Lifetime=0;",
+      "DbConnection": "User ID=wallet;Password=wallet22!;Host=172.31.32.7;Port=5432;Database=web-api-gpay;Pooling=true;Connection Lifetime=0;"
     }

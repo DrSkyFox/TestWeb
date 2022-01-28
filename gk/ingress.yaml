@@ -5,7 +5,7 @@ metadata:
     app.kubernetes.io/instance: wallet-m
     app.kubernetes.io/name: wallet-m
   annotations:
-    nginx.ingress.kubernetes.io/whitelist-source-range: 81.94.140.194
+    nginx.ingress.kubernetes.io/whitelist-source-range: 81.94.140.194, 79.120.10.159
     nginx.ingress.kubernetes.io/rewrite-target: /$1
     nginx.ingress.kubernetes.io/use-regex: "true"
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
@@ -21,29 +21,29 @@ spec:
     - host: mng.api.cloud.game-keeper.com
       http:
         paths:
-          - path: /(/|$)(.*)
-            pathType: ImplementationSpecific
+          - path: /(.*)
+            pathType: Prefix
             backend:
                   service:
                     name: wallet-m-main
                     port:
                       number: 8002
           - path: /apple(/|$)(.*)
-            pathType: ImplementationSpecific
+            pathType: Prefix
             backend:
               service:
                 name: wallet-m-applepass
                 port:
                   number: 8003
           - path: /google(/|$)(.*)
-            pathType: ImplementationSpecific
+            pathType: Prefix
             backend:
               service:
                 name: wallet-m-google
                 port:
                   number: 8004
           - path: /manage(/|$)(.*)
-            pathType: ImplementationSpecific
+            pathType: Prefix
             backend:
               service:
                 name: wallet-manager

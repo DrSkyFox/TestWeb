@@ -1,6 +1,5 @@
 package ru.test.service;
 
-import com.rabbitmq.client.AMQP;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
