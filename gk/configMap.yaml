@@ -61,14 +61,9 @@ data:
       "UserDbConnection": "User ID=wallet;Password=wallet22!;Host=172.31.32.7;Port=5432;Database=userDbManager;Pooling=true;Connection Lifetime=0;",
       "ExtServices": [
         {
-          "Key": "GooglePay",
-          "Name": "GooglePay",
-          "ManagementUrl": "https://g.mng.cl2.skyfactory.fun/Owners/Details/{businessId}"
-        },
-        {
           "Key": "ApplePass",
           "Name": "ApplePass",
-          "ManagementUrl": "https://a.mng.cl2.skyfactory.fun/Owners/Details/{businessId}"
+          "ManagementUrl": "https://a.mng.api.cloud.game-keeper.com/Owners/Details/{businessId}"
         }
       ]
     }

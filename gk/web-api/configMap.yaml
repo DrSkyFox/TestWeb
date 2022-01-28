@@ -31,7 +31,7 @@ data:
       "AllowedHosts": "*",
       "DbConnection": "User ID=wallet;Password=wallet22!;Host=172.31.32.7;Port=5432;Database=web-api;Pooling=true;Connection Lifetime=0;",
       "LinkTimeoutMinutes": 60,
-      "UseTokenAuth": false,
+      "UseTokenAuth": true,
       "ServiceKey": "wallet_api",
       "ClientSaveServiceKey": "client_save",
       "RabbitMqConfig": {

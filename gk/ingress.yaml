@@ -35,13 +35,6 @@ spec:
                 name: wallet-m-applepass
                 port:
                   number: 8003
-          - path: /google(/|$)(.*)
-            pathType: Prefix
-            backend:
-              service:
-                name: wallet-m-google
-                port:
-                  number: 8004
           - path: /manage(/|$)(.*)
             pathType: Prefix
             backend:
@@ -49,4 +42,36 @@ spec:
                 name: wallet-manager
                 port:
                   number: 8001
+
+---
+
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  labels:
+    app.kubernetes.io/instance: wallet-m-apple
+    app.kubernetes.io/name: wallet-m-apple
+  annotations:
+    nginx.ingress.kubernetes.io/whitelist-source-range: 81.94.140.194, 79.120.10.159
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+  name: wallet-m-apple
+  namespace: wallet
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - a.mng.api.cloud.game-keeper.com
+      secretName: a-mng-api-gk-com
+  rules:
+    - host: a.mng.api.cloud.game-keeper.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: wallet-m-applepass
+                port:
+                  number: 8003
 
